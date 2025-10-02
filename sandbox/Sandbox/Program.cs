@@ -1,9 +1,12 @@
 using System;
+using System.Globalization;
 
 class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello Sandbox World!");
+        Costume myCostume = new Costume();
+        myCostume.Outfit = "tartan and kilt";
+        myCostume.Display();
     }
 }
