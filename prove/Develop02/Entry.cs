@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 public class Entry
 {
     public string Prompt { get; set; }
@@ -10,11 +8,11 @@ public class Entry
     {
         Prompt = prompt;
         Response = response;
-        Date = DateTime.Now.ToString("MM,dd,yyyy");
+        Date = DateTime.Now.ToString("yyyy-MM-dd"); // no commas now
     }
 
     public string Csv()
     {
-        return $"{Date}, {Prompt.Replace(",", ";")}, {Response.Replace(",", ";")}";
+        return $"{Date},{Prompt.Replace(",", ";")},{Response.Replace(",", ";")}";
     }
 }
