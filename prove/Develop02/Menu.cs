@@ -90,9 +90,9 @@ public class Menu
         Console.WriteLine("\n--- Your Journal Entries ---");
         foreach (Entry entry in entries)
         {
-            Console.WriteLine($"Date: {entry.Date}");
-            Console.WriteLine($"Prompt: {entry.Prompt}");
-            Console.WriteLine($"Response: {entry.Response}");
+            Console.WriteLine($"Date: {entry.GetDate()}");
+            Console.WriteLine($"Prompt: {entry.GetPrompt()}");
+            Console.WriteLine($"Response: {entry.GetResponse()}");
             Console.WriteLine();
         }
     }
@@ -118,7 +118,7 @@ public class Menu
                     string response = string.Join(",", parts, 2, parts.Length - 2).Trim();
 
                     Entry entry = new Entry(prompt, response);
-                    entry.Date = date;
+                    SetEntryDate(entry, date);
                     entries.Add(entry);
                 }
             }
@@ -127,6 +127,15 @@ public class Menu
         else
         {
             Console.WriteLine("\nFile not found.");
+        }
+    }
+
+    private void SetEntryDate(Entry entry, string date)
+    {
+        var dateField = typeof(Entry).GetField("_date", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        if (dateField != null)
+        {
+            dateField.SetValue(entry, date);
         }
     }
 

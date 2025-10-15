@@ -13,7 +13,6 @@ class Program
         job1._endYear = "2025";
 
         job1.DisplayJobDetails();
-        // Console.WriteLine(job1._company);
 
         Job job2 = new Job();
 
@@ -23,7 +22,6 @@ class Program
         job2._endYear = "2005";
 
         job2.DisplayJobDetails();
-        // Console.WriteLine(job2._company);
 
         Resume myResume = new Resume();
         myResume._name = "Tyler Burke";
