@@ -5,7 +5,6 @@ class Program
 {
     static void Main(string[] args)
     {
-        // Create a list of scriptures
         List<Scripture> scriptures = new List<Scripture>
         {
             new Scripture(new Reference("John", 3, 16),
@@ -31,7 +30,6 @@ class Program
 
         };
 
-        // Loop through each scripture
         foreach (Scripture scripture in scriptures)
         {
             Reference reference = scripture.GetReference();

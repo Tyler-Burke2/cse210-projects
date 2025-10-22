@@ -1,5 +1,6 @@
 public class Scripture
 {
+    // Attributes
     private Reference _reference;
     private List<Word> _words;
 
@@ -16,7 +17,7 @@ public class Scripture
         }
     }
 
-    // Display the scripture
+    // Behaviors
     public void Display()
     {
         Console.Clear();
@@ -24,7 +25,6 @@ public class Scripture
         Console.WriteLine(GetDisplayText());
     }
 
-    // Get the scripture text (including hidden words)
     public string GetDisplayText()
     {
         string result = "";
@@ -40,7 +40,6 @@ public class Scripture
         return _reference;
     }
 
-    // Hide a few random words
     public void HideRandomWords(int numberToHide)
     {
         Random random = new Random();
@@ -53,7 +52,7 @@ public class Scripture
 
             if (word.IsHidden() == true)
             {
-                // The word is already hidden, so skip it
+              
             }
             else
             {
@@ -68,7 +67,6 @@ public class Scripture
         }
     }
 
-    // Check if all words are hidden
     public bool IsCompletelyHidden()
     {
         foreach (Word word in _words)
