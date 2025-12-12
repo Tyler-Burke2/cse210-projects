@@ -1,39 +1,41 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 public class Order
 {
-    private List<Product> products;
-    private Customer customer;
+    private List<Product> _products;
+    private Customer _customer;
 
     public Order(Customer customer)
     {
-        this.customer = customer;
-        products = new List<Product>();
+        _customer = customer;
+        _products = new List<Product>();
     }
 
     public void AddProduct(Product product)
     {
-        products.Add(product);
+        _products.Add(product);
     }
 
-    public double CalculateTotalPrice()
+    public double CalculateTotal()
     {
         double total = 0;
 
-        foreach (Product p in products)
+        foreach (Product p in _products)
         {
-            total += p.GetTotalCost();
+            // In the order we stored Product with quantity being the ordered quantity
+            total += p.GetPrice() * p.GetQuantity();
         }
 
         // Shipping cost
-        if (customer.LivesInUSA())
+        if (_customer != null && _customer.LivesInUSA())
         {
-            total += 5.00; // Domestic
+            total += 5.00;
         }
         else
         {
-            total += 35.00; // International
+            total += 35.00;
         }
 
         return total;
@@ -43,17 +45,16 @@ public class Order
     {
         StringBuilder sb = new StringBuilder();
         sb.AppendLine("Packing Label:");
-
-        foreach (Product p in products)
+        foreach (Product p in _products)
         {
-            sb.AppendLine(p.ToString());
+            sb.AppendLine($"{p.GetName()} (ID: {p.GetId()}) - Qty: {p.GetQuantity()}");
         }
-
         return sb.ToString();
     }
 
     public string GetShippingLabel()
     {
-        return $"Ship To:\n{customer.GetName()}\n{customer.GetAddress().ToString()}";
+        if (_customer == null) return "No customer.";
+        return $"Ship To:\n{_customer.GetName()}\n{_customer.GetAddress().ToString()}";
     }
 }

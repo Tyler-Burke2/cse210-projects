@@ -1,25 +1,52 @@
+using System;
+
 public class Product
 {
-    private string name;
-    private string productID;
-    private double pricePerUnit;
-    private int quantity;
+    private string _name;
+    private string _productID;
+    private double _pricePerUnit;
+    private int _quantity;
 
     public Product(string name, string productID, double pricePerUnit, int quantity)
     {
-        this.name = name;
-        this.productID = productID;
-        this.pricePerUnit = pricePerUnit;
-        this.quantity = quantity;
+        _name = name;
+        _productID = productID;
+        _pricePerUnit = pricePerUnit;
+        _quantity = quantity;
     }
 
-    public double GetTotalCost()
+    public string GetId()
     {
-        return pricePerUnit * quantity;
+        return _productID;
+    }
+
+    public string GetName()
+    {
+        return _name;
+    }
+
+    public double GetPrice()
+    {
+        return _pricePerUnit;
+    }
+
+    public int GetQuantity()
+    {
+        return _quantity;
+    }
+
+    public void SetQuantity(int newQuantity)
+    {
+        _quantity = newQuantity;
+    }
+
+    public double GetTotalCost(int qty)
+    {
+        return _pricePerUnit * qty;
     }
 
     public override string ToString()
     {
-        return $"{name} (ID: {productID}) - Qty: {quantity}";
+        return $"{_name} (ID: {_productID}) - Qty: {_quantity}";
     }
 }

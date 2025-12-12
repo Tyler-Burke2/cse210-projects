@@ -1,46 +1,63 @@
 using System;
+using System.Collections.Generic;
 
 class Program
 {
-    static void Main()
+    static void Main(string[] args)
     {
-        Console.WriteLine("=== Activity Tracker ===");
+        Console.WriteLine("Use miles or kilometers? (m/km)");
+        string unit = Console.ReadLine().ToLower();
 
-        Console.Write("Enter date: ");
-        string date = Console.ReadLine();
+        Activity.SetUnit(unit);
 
-        Console.Write("Enter minutes: ");
-        int minutes = int.Parse(Console.ReadLine());
+        List<Activity> activities = new List<Activity>();
 
-        Console.WriteLine("\nSelect Activity Type:");
-        Console.WriteLine("1. Running");
-        Console.WriteLine("2. Cycling");
-        Console.WriteLine("3. Swimming");
-        Console.Write("Choice: ");
-        string choice = Console.ReadLine();
+        Console.WriteLine("How many activities?");
+        int count = int.Parse(Console.ReadLine());
 
-        Activity activity;
-
-        if (choice == "1")
+        for (int i = 0; i < count; i++)
         {
-            Console.Write("Enter distance (miles): ");
-            double distance = double.Parse(Console.ReadLine());
-            activity = new Running(date, minutes, distance);
-        }
-        else if (choice == "2")
-        {
-            Console.Write("Enter speed (mph): ");
-            double speed = double.Parse(Console.ReadLine());
-            activity = new Cycling(date, minutes, speed);
-        }
-        else
-        {
-            Console.Write("Enter number of laps: ");
-            int laps = int.Parse(Console.ReadLine());
-            activity = new Swimming(date, minutes, laps);
+            Console.WriteLine("\nChoose activity:");
+            Console.WriteLine("1. Running");
+            Console.WriteLine("2. Cycling");
+            Console.WriteLine("3. Swimming");
+
+            int option = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Date (MM/DD/YYYY):");
+            string date = Console.ReadLine();
+
+            Console.WriteLine("Length in minutes:");
+            int minutes = int.Parse(Console.ReadLine());
+
+            if (option == 1)
+            {
+                Console.WriteLine("Distance:");
+                double dist = double.Parse(Console.ReadLine());
+
+                activities.Add(new Running(date, minutes, dist));
+            }
+            else if (option == 2)
+            {
+                Console.WriteLine("Speed:");
+                double speed = double.Parse(Console.ReadLine());
+
+                activities.Add(new Cycling(date, minutes, speed));
+            }
+            else if (option == 3)
+            {
+                Console.WriteLine("Laps:");
+                int laps = int.Parse(Console.ReadLine());
+
+                activities.Add(new Swimming(date, minutes, laps));
+            }
         }
 
-        Console.WriteLine("\n=== ACTIVITY SUMMARY ===");
-        Console.WriteLine(activity.GetSummary());
+        Console.WriteLine("\n=== ACTIVITY SUMMARIES ===");
+
+        foreach (Activity a in activities)
+        {
+            Console.WriteLine(a.GetSummary());
+        }
     }
 }

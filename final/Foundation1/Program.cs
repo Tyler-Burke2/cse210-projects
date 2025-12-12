@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 class Program
 {
@@ -30,7 +31,30 @@ class Program
         }
 
         Console.WriteLine();
-        Console.WriteLine("Video Information:");
+        Console.WriteLine("=== VIDEO DETAILS ===");
         video.DisplayVideo();
+
+        List<Comment> comments = video.GetComments();
+        if (comments.Count > 0)
+        {
+            Comment longest = comments[0];
+            Comment shortest = comments[0];
+
+            foreach (Comment c in comments)
+            {
+                if (c.GetText().Length > longest.GetText().Length)
+                    longest = c;
+
+                if (c.GetText().Length < shortest.GetText().Length)
+                    shortest = c;
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Longest Comment:");
+            Console.WriteLine($"Author: {longest.GetAuthor()} - {longest.GetText()}");
+
+            Console.WriteLine("Shortest Comment:");
+            Console.WriteLine($"Author: {shortest.GetAuthor()} - {shortest.GetText()}");
+        }
     }
 }

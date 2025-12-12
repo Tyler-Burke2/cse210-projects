@@ -1,15 +1,15 @@
 public class Running : Activity
 {
-    private double distance;
+    private double _distance;
 
     public Running(string date, int minutes, double distance)
         : base(date, minutes)
     {
-        this.distance = distance;
+        _distance = distance;
     }
 
     public override double GetDistance()
     {
-        return distance;
+        return _distance;
     }
 }

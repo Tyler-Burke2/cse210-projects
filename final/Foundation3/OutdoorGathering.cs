@@ -1,15 +1,15 @@
 public class OutdoorGathering : Event
 {
-    private string weatherForecast;
+    private string _weatherForecast;
 
     public OutdoorGathering(string title, string description, string date, string time, Address address, string weatherForecast)
         : base(title, description, date, time, address)
     {
-        this.weatherForecast = weatherForecast;
+        _weatherForecast = weatherForecast;
     }
 
     public override string GetFullDetails()
     {
-        return $"{GetStandardDetails()}\nEvent Type: Outdoor Gathering\nWeather Forecast: {weatherForecast}";
+        return $"{GetStandardDetails()}\nEvent Type: Outdoor Gathering\nWeather Forecast: {_weatherForecast}";
     }
 }

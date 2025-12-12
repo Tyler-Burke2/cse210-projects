@@ -3,39 +3,47 @@ using System.Collections.Generic;
 
 public class Video
 {
-    private string title;
-    private string author;
-    private int length;   // seconds
-    private List<Comment> comments;
+    private string _title;
+    private string _author;
+    private int _length;
+    private List<Comment> _comments;
 
     public Video(string title, string author, int length)
     {
-        this.title = title;
-        this.author = author;
-        this.length = length;
-        comments = new List<Comment>();
+        _title = title;
+        _author = author;
+        _length = length;
+        _comments = new List<Comment>();
     }
 
     public int GetNumberOfComments()
     {
-        return comments.Count;
+        return _comments.Count;
     }
 
     public void AddComment(Comment comment)
     {
-        comments.Add(comment);
+        _comments.Add(comment);
     }
 
     public void DisplayVideo()
     {
-        Console.WriteLine($"Title: {title}");
-        Console.WriteLine($"Author: {author}");
-        Console.WriteLine($"Length: {length} seconds");
+        Console.WriteLine($"Title: {_title}");
+        Console.WriteLine($"Author: {_author}");
+        Console.WriteLine($"Length: {_length} seconds");
         Console.WriteLine($"Comments ({GetNumberOfComments()}):");
-
-        foreach (Comment c in comments)
+        foreach (Comment c in _comments)
         {
             c.DisplayComment();
         }
     }
+
+    public List<Comment> GetComments()
+    {
+        return new List<Comment>(_comments);
+    }
+
+    public string GetTitle() => _title;
+    public string GetAuthor() => _author;
+    public int GetLength() => _length;
 }

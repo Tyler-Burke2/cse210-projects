@@ -1,76 +1,97 @@
 using System;
+using System.Collections.Generic;
 
 class Program
 {
-    static void Main()
+    static void Main(string[] args)
     {
-        Console.WriteLine("=== Event Creator ===");
-        Console.Write("Enter title: ");
-        string title = Console.ReadLine();
+        List<Event> events = new List<Event>();
 
-        Console.Write("Enter description: ");
-        string description = Console.ReadLine();
-
-        Console.Write("Enter date: ");
-        string date = Console.ReadLine();
-
-        Console.Write("Enter time: ");
-        string time = Console.ReadLine();
-
-        Console.WriteLine("\n--- Address Info ---");
-        Console.Write("Street: ");
-        string street = Console.ReadLine();
-
-        Console.Write("City: ");
-        string city = Console.ReadLine();
-
-        Console.Write("State/Province: ");
-        string state = Console.ReadLine();
-
-        Console.Write("Country: ");
-        string country = Console.ReadLine();
-
-        Address address = new Address(street, city, state, country);
-
-        Console.WriteLine("\nSelect Event Type:");
+        Console.WriteLine("Choose event type:");
         Console.WriteLine("1. Lecture");
         Console.WriteLine("2. Reception");
         Console.WriteLine("3. Outdoor Gathering");
-        Console.Write("Choice: ");
-        string choice = Console.ReadLine();
 
-        Event finalEvent;
+        int option = int.Parse(Console.ReadLine());
 
-        if (choice == "1")
+        Console.WriteLine("Event title:");
+        string title = Console.ReadLine();
+
+        Console.WriteLine("Description:");
+        string description = Console.ReadLine();
+
+        Console.WriteLine("Date (MM/DD/YYYY):");
+        string date = Console.ReadLine();
+
+        Console.WriteLine("Time:");
+        string time = Console.ReadLine();
+
+        Console.WriteLine("Address - Street:");
+        string street = Console.ReadLine();
+
+        Console.WriteLine("Address - City:");
+        string city = Console.ReadLine();
+
+        Console.WriteLine("Address - State/Province:");
+        string state = Console.ReadLine();
+
+        Console.WriteLine("Address - Country:");
+        string country = Console.ReadLine();
+
+        Address addr = new Address(street, city, state, country);
+
+        if (option == 1)
         {
-            Console.Write("Enter speaker name: ");
+            Console.WriteLine("Speaker:");
             string speaker = Console.ReadLine();
 
-            Console.Write("Enter capacity (number): ");
+            Console.WriteLine("Capacity:");
             int capacity = int.Parse(Console.ReadLine());
 
-            finalEvent = new Lecture(title, description, date, time, address, speaker, capacity);
+            events.Add(new Lecture(title, description, date, time, addr, speaker, capacity));
         }
-        else if (choice == "2")
+        else if (option == 2)
         {
-            Console.Write("Enter RSVP email: ");
+            Console.WriteLine("RSVP Email:");
             string email = Console.ReadLine();
 
-            finalEvent = new Reception(title, description, date, time, address, email);
+            events.Add(new Reception(title, description, date, time, addr, email));
         }
         else
         {
-            Console.Write("Enter weather forecast: ");
-            string forecast = Console.ReadLine();
+            Console.WriteLine("Weather Forecast:");
+            string weather = Console.ReadLine();
 
-            finalEvent = new OutdoorGathering(title, description, date, time, address, forecast);
+            events.Add(new OutdoorGathering(title, description, date, time, addr, weather));
         }
 
-        Console.WriteLine("\n=== EVENT CREATED ===");
-        Console.WriteLine(finalEvent.GetStandardDetails());
-        Console.WriteLine();
-        Console.WriteLine(finalEvent.GetFullDetails());
-        Console.WriteLine();
-        Console.WriteLine(finalEvent.GetShortDescription());
+        Console.WriteLine("\n=== EVENT DETAILS ===");
+
+        foreach (Event ev in events)
+        {
+            Console.WriteLine(ev.GetStandardDetails());
+            Console.WriteLine();
+            Console.WriteLine(ev.GetFullDetails());
+            Console.WriteLine();
+            Console.WriteLine(ev.GetShortDescription());
+            Console.WriteLine();
+        }
+
+        Console.WriteLine("Search events by date (MM/DD/YYYY):");
+        string searchDate = Console.ReadLine();
+
+        bool found = false;
+        foreach (Event ev in events)
+        {
+            if (ev.GetDate() == searchDate)
+            {
+                Console.WriteLine("Event found:");
+                Console.WriteLine(ev.GetShortDescription());
+                found = true;
+            }
+        }
+
+        if (!found)
+            Console.WriteLine("No events found on that date.");
     }
 }
