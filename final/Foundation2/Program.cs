@@ -4,16 +4,53 @@ class Program
 {
     static void Main(string[] args)
     {
-        Address addr = new Address("120 Main St", "Rexburg", "Idaho", "USA");
-        Customer customer = new Customer("Tyler Burke", addr);
+        Console.WriteLine("Customer name:");
+        string name = Console.ReadLine();
+
+        Console.WriteLine("Street address:");
+        string street = Console.ReadLine();
+
+        Console.WriteLine("City:");
+        string city = Console.ReadLine();
+
+        Console.WriteLine("State/Province:");
+        string state = Console.ReadLine();
+
+        Console.WriteLine("Country:");
+        string country = Console.ReadLine();
+
+        Address address = new Address(street, city, state, country);
+        Customer customer = new Customer(name, address);
 
         Order order = new Order(customer);
 
-        order.AddProduct(new Product("USB Cable", "U102", 5.99, 3));
-        order.AddProduct(new Product("Laptop Stand", "L884", 32.50, 1));
+        Console.WriteLine("How many products do you want to add?");
+        int amount = int.Parse(Console.ReadLine());
 
+        for (int i = 0; i < amount; i++)
+        {
+            Console.WriteLine($"Product {i + 1} name:");
+            string productName = Console.ReadLine();
+
+            Console.WriteLine("Product ID:");
+            string id = Console.ReadLine();
+
+            Console.WriteLine("Price per unit:");
+            double price = double.Parse(Console.ReadLine());
+
+            Console.WriteLine("Quantity:");
+            int quantity = int.Parse(Console.ReadLine());
+
+            order.AddProduct(new Product(productName, id, price, quantity));
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("Packing Label:");
         Console.WriteLine(order.GetPackingLabel());
+
+        Console.WriteLine("Shipping Label:");
         Console.WriteLine(order.GetShippingLabel());
+
         Console.WriteLine($"Total Price: ${order.CalculateTotalPrice()}");
     }
 }
