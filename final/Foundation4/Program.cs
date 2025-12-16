@@ -5,59 +5,87 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Use miles or kilometers? (m/km)");
-        string unit = Console.ReadLine().ToLower();
+        Console.WriteLine("=== FITNESS ACTIVITY TRACKER ===\n");
+        
+        Console.WriteLine("=================================");
+        Console.WriteLine("DISPLAYING IN MILES");
+        Console.WriteLine("=================================\n");
+        
+        Activity.SetUnit("m");
 
-        Activity.SetUnit(unit);
-
-        List<Activity> activities = new List<Activity>();
-
-        Console.WriteLine("How many activities?");
-        int count = int.Parse(Console.ReadLine());
-
-        for (int i = 0; i < count; i++)
+        List<Activity> activitiesMiles = new List<Activity>
         {
-            Console.WriteLine("\nChoose activity:");
-            Console.WriteLine("1. Running");
-            Console.WriteLine("2. Cycling");
-            Console.WriteLine("3. Swimming");
+            new Running("12/15/2025", 30, 3.0),
+            new Cycling("12/16/2025", 45, 15.0),
+            new Swimming("12/17/2025", 30, 20)
+        };
 
-            int option = int.Parse(Console.ReadLine());
-
-            Console.WriteLine("Date (MM/DD/YYYY):");
-            string date = Console.ReadLine();
-
-            Console.WriteLine("Length in minutes:");
-            int minutes = int.Parse(Console.ReadLine());
-
-            if (option == 1)
-            {
-                Console.WriteLine("Distance:");
-                double dist = double.Parse(Console.ReadLine());
-
-                activities.Add(new Running(date, minutes, dist));
-            }
-            else if (option == 2)
-            {
-                Console.WriteLine("Speed:");
-                double speed = double.Parse(Console.ReadLine());
-
-                activities.Add(new Cycling(date, minutes, speed));
-            }
-            else if (option == 3)
-            {
-                Console.WriteLine("Laps:");
-                int laps = int.Parse(Console.ReadLine());
-
-                activities.Add(new Swimming(date, minutes, laps));
-            }
+        Console.WriteLine("Activity Summaries:");
+        foreach (Activity a in activitiesMiles)
+        {
+            Console.WriteLine($"   {a.GetSummary()}");
         }
 
-        Console.WriteLine("\n=== ACTIVITY SUMMARIES ===");
+        Console.WriteLine("\n");
 
-        foreach (Activity a in activities)
+        Console.WriteLine("=================================");
+        Console.WriteLine("DISPLAYING IN KILOMETERS");
+        Console.WriteLine("=================================\n");
+        
+        Activity.SetUnit("km");
+
+        List<Activity> activitiesKm = new List<Activity>
         {
-            Console.WriteLine(a.GetSummary());
+            new Running("12/15/2025", 30, 3.0),
+            new Cycling("12/16/2025", 45, 15.0),
+            new Swimming("12/17/2025", 30, 20)
+        };
+
+        Console.WriteLine("🏃 Activity Summaries:");
+        foreach (Activity a in activitiesKm)
+        {
+            Console.WriteLine($"   {a.GetSummary()}");
         }
+
+        Console.WriteLine("\n");
+
+        Console.WriteLine("=================================");
+        Console.WriteLine("DETAILED ACTIVITY BREAKDOWN");
+        Console.WriteLine("=================================\n");
+
+        Activity.SetUnit("m");
+        Running detailedRun = new Running("12/18/2025", 40, 5.0);
+
+        Console.WriteLine($"Activity Type: Running");
+        Console.WriteLine($"Date: {detailedRun.GetDate()}");
+        Console.WriteLine($"Duration: {detailedRun.GetMinutes()} minutes");
+        Console.WriteLine($"Distance: {detailedRun.GetDistance():0.0} miles");
+        Console.WriteLine($"Speed: {detailedRun.GetSpeed():0.0} mph");
+        Console.WriteLine($"Pace: {detailedRun.GetPace():0.0} min per mile");
+
+        Console.WriteLine("\n");
+
+        Console.WriteLine("=================================");
+        Console.WriteLine("POLYMORPHISM DEMONSTRATION");
+        Console.WriteLine("=================================\n");
+
+        Console.WriteLine("All activities can be treated uniformly:\n");
+
+        List<Activity> mixedActivities = new List<Activity>
+        {
+            new Running("12/19/2025", 25, 2.5),
+            new Cycling("12/19/2025", 60, 18.0),
+            new Swimming("12/19/2025", 45, 30),
+            new Running("12/20/2025", 35, 4.0)
+        };
+
+        int activityCount = 1;
+        foreach (Activity activity in mixedActivities)
+        {
+            Console.WriteLine($"{activityCount}. {activity.GetSummary()}");
+            activityCount++;
+        }
+
+        Console.WriteLine($"\nTotal Activities Tracked: {mixedActivities.Count}");
     }
 }
